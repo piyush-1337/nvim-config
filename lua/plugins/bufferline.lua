@@ -9,6 +9,10 @@ return {
 
     require('bufferline').setup {
       options = {
+
+        show_duplicate_prefix = true,
+        duplicates_across_groups = true,
+
         mode = 'buffers', -- set to "tabs" to only show tabpages instead
         themable = true, -- allows highlight groups to be overriden i.e. sets highlights as default
         numbers = 'none', -- | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
@@ -35,7 +39,7 @@ return {
         show_close_icon = true,
         persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
         separator_style = { '│', '│' }, -- | "thick" | "thin" | { 'any', 'any' },
-        enforce_regular_tabs = true,
+        enforce_regular_tabs = false,
         always_show_bufferline = true,
         show_tab_indicators = false,
         indicator = {
