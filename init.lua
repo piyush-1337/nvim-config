@@ -58,6 +58,7 @@ require('lazy').setup({
   require 'plugins.codeium',
   require 'plugins.colorizer',
   -- require 'plugins.image',
+  require 'plugins.java',
 }, {
   ui = {
     -- If you have a Nerd Font, set icons to an empty table which will use the

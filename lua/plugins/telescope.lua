@@ -12,12 +12,12 @@ local function get_project_root()
   -- 2. Check for common project markers in parent directories
   local markers = {
     '.git',
-    'package.json',     -- Node.js
-    'pyproject.toml',   -- Python
-    'go.mod',           -- Go
-    'Cargo.toml',       -- Rust
+    'package.json', -- Node.js
+    'pyproject.toml', -- Python
+    'go.mod', -- Go
+    'Cargo.toml', -- Rust
     'Makefile',
-    'build.gradle',     -- Java
+    'build.gradle', -- Java
     'requirements.txt', -- Python
   }
 
@@ -44,7 +44,8 @@ end
 -- Fuzzy Finder (files, lsp, etc)
 return {
   'nvim-telescope/telescope.nvim',
-  branch = '0.1.x',
+  -- branch = '0.1.x',
+  branch = 'master',
   dependencies = {
     'nvim-lua/plenary.nvim',
     -- Fuzzy Finder Algorithm which requires local dependencies to be built.
@@ -60,7 +61,7 @@ return {
     'nvim-telescope/telescope-ui-select.nvim',
 
     -- Useful for getting pretty icons, but requires a Nerd Font.
-    'nvim-tree/nvim-web-devicons',
+    { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
   },
 
   config = function()
@@ -73,8 +74,8 @@ return {
         mappings = {
           i = {
             ['<C-k>'] = actions.move_selection_previous, -- move to prev result
-            ['<C-j>'] = actions.move_selection_next,     -- move to next result
-            ['<C-l>'] = actions.select_default,          -- open file
+            ['<C-j>'] = actions.move_selection_next, -- move to next result
+            ['<C-l>'] = actions.select_default, -- open file
           },
           n = {
             ['q'] = actions.close,
@@ -126,15 +127,54 @@ return {
     vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[?] Find recently opened files' })
     vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[S]earch existing [B]uffers' })
     vim.keymap.set('n', '<leader>sm', builtin.marks, { desc = '[S]earch [M]arks' })
-    vim.keymap.set('n', '<leader>gf', builtin.git_files, { desc = 'Search [G]it [F]iles' })
-    vim.keymap.set('n', '<leader>gc', builtin.git_commits, { desc = 'Search [G]it [C]ommits' })
-    vim.keymap.set('n', '<leader>gcf', builtin.git_bcommits, { desc = 'Search [G]it [C]ommits for current [F]ile' })
-    vim.keymap.set('n', '<leader>gb', builtin.git_branches, { desc = 'Search [G]it [B]ranches' })
-    vim.keymap.set('n', '<leader>gs', builtin.git_status, { desc = 'Search [G]it [S]tatus (diff view)' })
-    vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+    vim.keymap.set('n', '<leader>gf', function()
+      builtin.git_files {
+        cwd = get_project_root(),
+        show_untracked = true,
+      }
+    end, { desc = 'Search [G]it [F]iles in Project Root' })
+    vim.keymap.set('n', '<leader>gc', function()
+      builtin.git_commits {
+        cwd = get_project_root(),
+      }
+    end, { desc = 'Search [G]it [C]ommits in Project Root' })
+    vim.keymap.set('n', '<leader>gcf', function()
+      builtin.git_bcommits {
+        cwd = get_project_root(),
+      }
+    end, { desc = 'Search [G]it [C]ommits for current [F]ile in Project Root' })
+    vim.keymap.set('n', '<leader>gb', function()
+      builtin.git_branches {
+        cwd = get_project_root(),
+      }
+    end, { desc = 'Search [G]it [B]ranches in Project Root' })
+    vim.keymap.set('n', '<leader>gs', function()
+      builtin.git_status {
+        cwd = get_project_root(),
+      }
+    end, { desc = 'Search [G]it [S]tatus (diff view) in Project Root' })
+    vim.keymap.set('n', '<leader>sf', function()
+      builtin.find_files {
+        cwd = get_project_root(),
+        hidden = true,
+        file_ignore_patterns = { 'node_modules', '.git', '.venv' },
+      }
+    end, { desc = '[S]earch [F]iles in Project Root' })
     vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
-    vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-    vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+    vim.keymap.set('n', '<leader>sw', function()
+      builtin.grep_string {
+        cwd = get_project_root(),
+      }
+    end, { desc = '[S]earch current [W]ord in Project Root' })
+    vim.keymap.set('n', '<leader>sg', function()
+      builtin.live_grep {
+        cwd = get_project_root(),
+        file_ignore_patterns = { 'node_modules', '.git', '.venv' },
+        additional_args = function(_)
+          return { '--hidden' }
+        end,
+      }
+    end, { desc = '[S]earch by [G]rep in Project Root' })
     vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
     vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]resume' })
     vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })

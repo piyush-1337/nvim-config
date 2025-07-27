@@ -25,9 +25,6 @@ return { -- LSP Configuration & Plugins
       },
     },
   },
-  opts = {
-    inlay_hints = { enabled = true },
-  },
   config = function()
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
@@ -93,14 +90,10 @@ return { -- LSP Configuration & Plugins
         local client = vim.lsp.get_client_by_id(event.data.client_id)
 
         -- Add this just after getting `client`
-        if client then
-          if client.server_capabilities.inlayHintProvider then
-            -- print('Enabling inlay hints for: ' .. client.name)
-            vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
-            -- print('Inlay hints enabled for buffer ' .. event.buf .. ': ' .. tostring(vim.lsp.inlay_hint.is_enabled { bufnr = event.buf }))
-          else
-            -- print('Inlay hint not supported by ' .. client.name)
-          end
+        if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+          map('<leader>th', function()
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
+          end, '[T]oggle Inlay [H]ints')
         end
 
         if client and client.server_capabilities.documentHighlightProvider then
@@ -117,7 +110,8 @@ return { -- LSP Configuration & Plugins
       end,
     })
 
-    local merged_config = vim.tbl_deep_extend('force', { capabilities = capabilities }, server or {})
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
     -- Enable the following language servers
     local servers = {
       lua_ls = {
@@ -150,26 +144,29 @@ return { -- LSP Configuration & Plugins
               callSnippet = 'Replace',
             },
             telemetry = { enable = false },
-            diagnostics = { disable = { 'missing-fields' } },
-          },
-        },
-      },
-      pylsp = {
-        settings = {
-          pylsp = {
-            plugins = {
-              pyflakes = { enabled = false },
-              pycodestyle = { enabled = false },
-              autopep8 = { enabled = false },
-              yapf = { enabled = false },
-              mccabe = { enabled = false },
-              pylsp_mypy = { enabled = false },
-              pylsp_black = { enabled = false },
-              pylsp_isort = { enabled = false },
+            diagnostics = {
+              disable = { 'missing-fields' },
+              globals = { 'vim' },
             },
           },
         },
       },
+      -- pylsp = {
+      --   settings = {
+      --     pylsp = {
+      --       plugins = {
+      --         pyflakes = { enabled = false },
+      --         pycodestyle = { enabled = false },
+      --         autopep8 = { enabled = false },
+      --         yapf = { enabled = false },
+      --         mccabe = { enabled = false },
+      --         pylsp_mypy = { enabled = false },
+      --         pylsp_black = { enabled = false },
+      --         pylsp_isort = { enabled = false },
+      --       },
+      --     },
+      --   },
+      -- },
       -- basedpyright = {
       --   -- Config options: https://github.com/DetachHead/basedpyright/blob/main/docs/settings.md
       --   settings = {
@@ -215,12 +212,12 @@ return { -- LSP Configuration & Plugins
       --   },
       -- },
       jsonls = {},
-      sqlls = {},
+      -- sqlls = {},
       -- terraformls = {},
-      yamlls = {},
+      -- yamlls = {},
       bashls = {},
-      dockerls = {},
-      docker_compose_language_service = {},
+      -- dockerls = {},
+      -- docker_compose_language_service = {},
       tailwindcss = {},
       -- graphql = {},
       html = { filetypes = { 'html', 'twig', 'hbs' } },
@@ -256,7 +253,7 @@ return { -- LSP Configuration & Plugins
             completeFunctionCalls = true,
           },
         },
-        on_attach = function(client, _)
+        on_attach = function(client, bufnr)
           client.server_capabilities.documentFormattingProvider = false
           client.server_capabilities.documentRangeFormattingProvider = false
           vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
@@ -307,65 +304,65 @@ return { -- LSP Configuration & Plugins
         },
       },
 
-      jdtls = {
-        cmd = { 'jdtls' },
-        root_dir = require('lspconfig').util.root_pattern('.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle'),
-        init_options = {
-          extendedClientCapabilities = {
-            inlayHints = {
-              enable = true,
-            },
-          },
-        },
-        settings = {
-          java = {
-            -- Add this section for inlay hints
-            inlayHints = {
-              parameterNames = {
-                enabled = 'all', -- or "literals" for only literal parameter names
-              },
-              other = {
-                enabled = true,
-                typeHints = true,
-                typeHintsOptions = {
-                  showCompactTypeNames = false,
-                },
-              },
-            },
+    --   jdtls = {
+    --     cmd = { 'jdtls' },
+    --     root_dir = require('lspconfig').util.root_pattern('.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle'),
+    --     init_options = {
+    --       extendedClientCapabilities = {
+    --         inlayHints = {
+    --           enable = true,
+    --         },
+    --       },
+    --     },
+    --     settings = {
+    --       java = {
+    --         -- Add this section for inlay hints
+    --         inlayHints = {
+    --           parameterNames = {
+    --             enabled = 'all', -- or "literals" for only literal parameter names
+    --           },
+    --           other = {
+    --             enabled = true,
+    --             typeHints = true,
+    --             typeHintsOptions = {
+    --               showCompactTypeNames = false,
+    --             },
+    --           },
+    --         },
 
-            configuration = {
-              updateBuildConfiguration = 'interactive',
-            },
-            completion = {
-              favoriteStaticMembers = {
-                'org.hamcrest.MatcherAssert.assertThat',
-                'org.hamcrest.Matchers.*',
-                'org.hamcrest.CoreMatchers.*',
-                'org.junit.jupiter.api.Assertions.*',
-                'java.util.Objects.requireNonNull',
-                'java.util.Objects.requireNonNullElse',
-                'org.mockito.Mockito.*',
-              },
-            },
-            contentProvider = { preferred = 'fernflower' },
-            sources = {
-              organizeImports = {
-                starThreshold = 9999,
-                staticStarThreshold = 9999,
-              },
-            },
-            codeGeneration = {
-              toString = {
-                template = '${object.className}{${member.name()}=${member.value}, ${otherMembers}}',
-              },
-              hashCodeEquals = {
-                useJava7Objects = true,
-              },
-              useBlocks = true,
-            },
-          },
-        },
-      },
+    --         configuration = {
+    --           updateBuildConfiguration = 'interactive',
+    --         },
+    --         completion = {
+    --           favoriteStaticMembers = {
+    --             'org.hamcrest.MatcherAssert.assertThat',
+    --             'org.hamcrest.Matchers.*',
+    --             'org.hamcrest.CoreMatchers.*',
+    --             'org.junit.jupiter.api.Assertions.*',
+    --             'java.util.Objects.requireNonNull',
+    --             'java.util.Objects.requireNonNullElse',
+    --             'org.mockito.Mockito.*',
+    --           },
+    --         },
+    --         contentProvider = { preferred = 'fernflower' },
+    --         sources = {
+    --           organizeImports = {
+    --             starThreshold = 9999,
+    --             staticStarThreshold = 9999,
+    --           },
+    --         },
+    --         codeGeneration = {
+    --           toString = {
+    --             template = '${object.className}{${member.name()}=${member.value}, ${otherMembers}}',
+    --           },
+    --           hashCodeEquals = {
+    --             useJava7Objects = true,
+    --           },
+    --           useBlocks = true,
+    --         },
+    --       },
+    --     },
+    --   },
     }
 
     -- Ensure the servers and tools above are installed
@@ -374,22 +371,18 @@ return { -- LSP Configuration & Plugins
     -- You can add other tools here that you want Mason to install
     -- for you, so that they are available from within Neovim.
     local ensure_installed = vim.tbl_keys(servers or {})
-    vim.list_extend(ensure_installed, {
-      'stylua', -- Used to format lua code
-    })
+
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
-    require('mason-lspconfig').setup {
-      handlers = {
-        function(server_name)
-          local server = servers[server_name] or {}
-          -- This handles overriding only values explicitly passed
-          -- by the server configuration above. Useful when disabling
-          -- certain features of an LSP (for example, turning off formatting for tsserver)
-          server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-          require('lspconfig')[server_name].setup(merged_config)
-        end,
-      },
-    }
+    for server, cfg in pairs(servers) do
+      -- For each LSP server (cfg), we merge:
+      -- 1. A fresh empty table (to avoid mutating capabilities globally)
+      -- 2. Your capabilities object with Neovim + cmp features
+      -- 3. Any server-specific cfg.capabilities if defined in `servers`
+      cfg.capabilities = vim.tbl_deep_extend('force', {}, capabilities, cfg.capabilities or {})
+
+      vim.lsp.config(server, cfg)
+      vim.lsp.enable(server)
+    end
   end,
 }
