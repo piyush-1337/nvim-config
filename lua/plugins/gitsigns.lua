@@ -12,15 +12,15 @@ return {
       changedelete = { text = '~', hl = 'GitSignsChange' },
     },
     signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
-    numhl = false,     -- Highlights the line number
-    linehl = false,    -- You can set this to true if you want to highlight entire lines
+    numhl = false, -- Highlights the line number
+    linehl = false, -- You can set this to true if you want to highlight entire lines
     word_diff = false, -- Enable word diff if you like
     watch_gitdir = {
       interval = 1000,
       follow_files = true,
     },
     attach_to_untracked = true,
-    current_line_blame = false,
+    current_line_blame = true,
     update_debounce = 200,
     max_file_length = 40000,
     preview_config = {

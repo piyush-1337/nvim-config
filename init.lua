@@ -103,3 +103,18 @@ end
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+vim.api.nvim_create_autocmd('LspTokenUpdate', {
+  desc = 'Override semantic token priorities',
+  callback = function(args)
+    local token = args.data.token
+    local bufnr = args.buf
+    local client_id = args.data.client_id
+
+    -- Only modify variable-related tokens
+    if token.type == 'variable' or token.type:find 'variable' then
+      vim.lsp.semantic_tokens.highlight_token(token, bufnr, client_id, token.type, {
+        priority = 200, -- Higher than Treesitter's 100
+      })
+    end
+  end,
+})
