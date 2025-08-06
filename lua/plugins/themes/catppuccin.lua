@@ -5,13 +5,17 @@ return {
   config = function()
     require('catppuccin').setup {
       transparent_background = true,
-      flavour = 'mocha', -- Options: latte, frappe, macchiato, mocha
+      flavour = 'macchiato', -- Options: latte, frappe, macchiato, mocha
+      float = {
+        transparent = true,
+        solid = true,
+      },
       integrations = {
         cmp = true,
         gitsigns = true,
         nvimtree = true,
         treesitter = true,
-        telescope = true,
+        telescope = false,
         mason = true,
         native_lsp = {
           enabled = true,
@@ -24,7 +28,6 @@ return {
         },
       },
     }
-    vim.cmd.colorscheme 'catppuccin-mocha'
-    require('core.highlight').setup()
+    vim.cmd.colorscheme 'catppuccin-macchiato'
   end,
 }

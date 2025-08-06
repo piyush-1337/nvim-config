@@ -12,13 +12,13 @@ local function get_project_root()
   -- 2. Check for common project markers in parent directories
   local markers = {
     '.git',
-    'package.json', -- Node.js
-    'pyproject.toml', -- Python
-    'go.mod', -- Go
-    'Cargo.toml', -- Rust
+    'package.json',     -- Node.js
+    'pyproject.toml',   -- Python
+    'go.mod',           -- Go
+    'Cargo.toml',       -- Rust
     'Makefile',
-    'build.gradle', -- Java
-    'pom.xml', -- Java
+    'build.gradle',     -- Java
+    'pom.xml',          -- Java
     'requirements.txt', -- Python
   }
 
@@ -45,8 +45,8 @@ end
 -- Fuzzy Finder (files, lsp, etc)
 return {
   'nvim-telescope/telescope.nvim',
-  -- branch = '0.1.x',
-  branch = 'master',
+  branch = '0.1.x',
+  -- branch = 'master',
   dependencies = {
     'nvim-lua/plenary.nvim',
     -- Fuzzy Finder Algorithm which requires local dependencies to be built.
@@ -75,8 +75,8 @@ return {
         mappings = {
           i = {
             ['<C-k>'] = actions.move_selection_previous, -- move to prev result
-            ['<C-j>'] = actions.move_selection_next, -- move to next result
-            ['<C-l>'] = actions.select_default, -- open file
+            ['<C-j>'] = actions.move_selection_next,     -- move to next result
+            ['<C-l>'] = actions.select_default,          -- open file
           },
           n = {
             ['q'] = actions.close,

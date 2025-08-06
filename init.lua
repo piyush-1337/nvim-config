@@ -1,5 +1,5 @@
-require 'core.options'  -- Load general options
-require 'core.keymaps'  -- Load general keymaps
+require 'core.options' -- Load general options
+require 'core.keymaps' -- Load general keymaps
 require 'core.snippets' -- Custom code snippets
 local catppuccin = require 'plugins.themes.catppuccin'
 local gruvbox = require 'plugins.themes.gruvbox'
