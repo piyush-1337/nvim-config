@@ -8,10 +8,9 @@ return {
     -- Highlight groups (same as before)
     hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
       vim.api.nvim_set_hl(0, 'IblIndent', { fg = '#3b4261' })
-      vim.api.nvim_set_hl(0, 'IblScope', { fg = '#a6e3a1' })
+      vim.api.nvim_set_hl(0, 'IblScope', { fg = '#c5c5b0' })
     end)
 
-    -- 🔥 Enable scope animation
     hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
 
     -- Main setup

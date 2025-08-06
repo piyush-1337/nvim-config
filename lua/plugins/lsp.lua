@@ -35,6 +35,8 @@ return { -- LSP Configuration & Plugins
           vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
         end
 
+        map('<leader>sh', vim.lsp.buf.signature_help, 'Signature Help')
+
         -- Jump to the definition of the word under your cursor.
         --  This is where a variable was first declared, or where a function is defined, etc.
         --  To jump back, press <C-T>.
@@ -304,65 +306,26 @@ return { -- LSP Configuration & Plugins
         },
       },
 
-    --   jdtls = {
-    --     cmd = { 'jdtls' },
-    --     root_dir = require('lspconfig').util.root_pattern('.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle'),
-    --     init_options = {
-    --       extendedClientCapabilities = {
-    --         inlayHints = {
-    --           enable = true,
-    --         },
-    --       },
-    --     },
-    --     settings = {
-    --       java = {
-    --         -- Add this section for inlay hints
-    --         inlayHints = {
-    --           parameterNames = {
-    --             enabled = 'all', -- or "literals" for only literal parameter names
-    --           },
-    --           other = {
-    --             enabled = true,
-    --             typeHints = true,
-    --             typeHintsOptions = {
-    --               showCompactTypeNames = false,
-    --             },
-    --           },
-    --         },
-
-    --         configuration = {
-    --           updateBuildConfiguration = 'interactive',
-    --         },
-    --         completion = {
-    --           favoriteStaticMembers = {
-    --             'org.hamcrest.MatcherAssert.assertThat',
-    --             'org.hamcrest.Matchers.*',
-    --             'org.hamcrest.CoreMatchers.*',
-    --             'org.junit.jupiter.api.Assertions.*',
-    --             'java.util.Objects.requireNonNull',
-    --             'java.util.Objects.requireNonNullElse',
-    --             'org.mockito.Mockito.*',
-    --           },
-    --         },
-    --         contentProvider = { preferred = 'fernflower' },
-    --         sources = {
-    --           organizeImports = {
-    --             starThreshold = 9999,
-    --             staticStarThreshold = 9999,
-    --           },
-    --         },
-    --         codeGeneration = {
-    --           toString = {
-    --             template = '${object.className}{${member.name()}=${member.value}, ${otherMembers}}',
-    --           },
-    --           hashCodeEquals = {
-    --             useJava7Objects = true,
-    --           },
-    --           useBlocks = true,
-    --         },
-    --       },
-    --     },
-    --   },
+      clangd = {
+        cmd = {
+          'clangd',
+          '--background-index',
+          '--clang-tidy',
+          '--header-insertion=iwyu',
+          '--completion-style=detailed',
+          '--function-arg-placeholders',
+          '--malloc-trim',
+        },
+        filetypes = { 'c', 'cpp', 'objc', 'objcpp' },
+        root_markers = { 'compile_commands.json', '.git' },
+        init_options = {
+          clangdFileStatus = true,
+          usePlaceholders = true,
+          completeUnimported = true,
+        },
+        capabilities = require('cmp_nvim_lsp').default_capabilities(),
+        settings = {},
+      },
     }
 
     -- Ensure the servers and tools above are installed

@@ -2,7 +2,8 @@
 
 -- Prevent LSP from overwriting treesitter color settings
 -- https://github.com/NvChad/NvChad/issues/1907
-vim.hl.priorities.semantic_tokens = 95 -- Or any number lower than 100, treesitter's priority level
+-- NOTE : This is changed to 95 to 105 change here if there are any unsual issues
+vim.hl.priorities.semantic_tokens = 105 -- Or any number lower than 100, treesitter's priority level
 
 -- Appearance of diagnostics
 vim.diagnostic.config {
@@ -14,7 +15,7 @@ vim.diagnostic.config {
       return string.format('%s %s', code, diagnostic.message)
     end,
   },
-  underline = false,
+  underline = true,
   update_in_insert = true,
   float = {
     source = true, -- Or "if_many"
@@ -25,7 +26,7 @@ vim.diagnostic.config {
       [vim.diagnostic.severity.ERROR] = ' ',
       [vim.diagnostic.severity.WARN] = ' ',
       [vim.diagnostic.severity.INFO] = ' ',
-      [vim.diagnostic.severity.HINT] = '󰌵 ',
+      [vim.diagnostic.severity.HINT] = '󰌵',
     },
   },
 

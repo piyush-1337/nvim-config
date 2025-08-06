@@ -31,4 +31,8 @@ return {
       },
     }
   end,
+
+  vim.keymap.set('n', '<leader>cc', function()
+    require('codeium').toggle()
+  end, { desc = 'Codeium' }),
 }

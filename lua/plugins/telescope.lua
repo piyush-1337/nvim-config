@@ -1,6 +1,6 @@
 local function get_project_root()
   -- 1. First try all active LSP clients (including those not attached to current buffer)
-  for _, client in ipairs(vim.lsp.get_active_clients()) do
+  for _, client in ipairs(vim.lsp.get_clients()) do
     if client.config and client.config.root_dir then
       local root = client.config.root_dir
       if root and root ~= '' and vim.fn.isdirectory(root) == 1 then
@@ -18,6 +18,7 @@ local function get_project_root()
     'Cargo.toml', -- Rust
     'Makefile',
     'build.gradle', -- Java
+    'pom.xml', -- Java
     'requirements.txt', -- Python
   }
 

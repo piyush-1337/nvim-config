@@ -48,4 +48,11 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
     opts = { signs = false },
   },
+
+  {
+    'folke/neodev.nvim',
+    config = function()
+      require('neodev').setup {}
+    end,
+  },
 }

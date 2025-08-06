@@ -52,28 +52,6 @@ vim.api.nvim_create_autocmd('VimEnter', {
   end,
 })
 
--- vim.api.nvim_create_autocmd('LspAttach', {
---   callback = function(args)
---     -- Safety checks
---     if not args.data or not args.data.client_id or not args.buf then
---       return
---     end
---
---     local client = vim.lsp.get_client_by_id(args.data.client_id)
---     if not client or not client.server_capabilities then
---       return
---     end
---
---     if client.server_capabilities.semanticTokensProvider then
---       -- Only start semantic tokens if not already active
---       local ok = pcall(vim.lsp.semantic_tokens.start, args.buf)
---       if not ok then
---         vim.notify('Failed to start semantic tokens', vim.log.levels.WARN)
---       end
---     end
---   end,
--- })
-
 vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 vim.o.foldenable = true

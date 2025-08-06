@@ -35,6 +35,7 @@ require('lazy').setup({
   require(themes['catppuccin']), -- error with setup script no dynamic themeing for now
   require 'plugins.telescope',
   require 'plugins.treesitter',
+  require 'plugins.misc',
   require 'plugins.lsp',
   require 'plugins.autocompletion',
   require 'plugins.none-ls',
@@ -48,17 +49,17 @@ require('lazy').setup({
   require 'plugins.debug',
   require 'plugins.gitsigns',
   require 'plugins.database',
-  require 'plugins.misc',
   require 'plugins.harpoon',
   -- require 'plugins.avante',
   -- require 'plugins.chatgpt',
   require 'plugins.aerial',
   require 'plugins.vim-tmux-navigator',
   require 'plugins.color-pallete',
-  require 'plugins.codeium',
   require 'plugins.colorizer',
   -- require 'plugins.image',
   require 'plugins.java',
+  -- require 'plugins.codeium',
+  require 'plugins.copilot',
 }, {
   ui = {
     -- If you have a Nerd Font, set icons to an empty table which will use the
@@ -103,18 +104,3 @@ end
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
-vim.api.nvim_create_autocmd('LspTokenUpdate', {
-  desc = 'Override semantic token priorities',
-  callback = function(args)
-    local token = args.data.token
-    local bufnr = args.buf
-    local client_id = args.data.client_id
-
-    -- Only modify variable-related tokens
-    if token.type == 'variable' or token.type:find 'variable' then
-      vim.lsp.semantic_tokens.highlight_token(token, bufnr, client_id, token.type, {
-        priority = 200, -- Higher than Treesitter's 100
-      })
-    end
-  end,
-})
