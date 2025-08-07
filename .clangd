@@ -1,0 +1,45 @@
+CompileFlags:
+  Add: [-Wall, -Wextra, -Wconversion, -Wno-sign-conversion, -std=c++23]
+
+CompletionStyle: detailed
+
+Diagnostics:
+  UnusedIncludes: Default # was Strict — causes false positives
+  ClangTidy:
+    Add: [
+        bugprone-*, # still valuable
+        performance-*,
+        readability-identifier-naming,
+      ]
+    Remove: [
+        clang-analyzer-alpha.*,
+        google-*,
+        llvm-*,
+        hicpp-*,
+        cppcoreguidelines-pro-type*, # too verbose
+        cppcoreguidelines-owning-memory, # irrelevant for most
+        cppcoreguidelines-avoid-non-const-global-variables, # too strict
+        cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+        cppcoreguidelines-pro-bounds-constant-array-index,
+      ]
+    CheckOptions:
+      readability-identifier-naming.VariableCase: lower_case
+
+InlayHints:
+  Enabled: Yes
+
+Index:
+  Background: Yes
+  StandardLibrary: Yes
+
+Hover:
+  ShowAKA: Yes
+
+Completion:
+  AllScopes: Yes
+  Dedupe: Yes
+
+Style:
+  FullyQualifiedNamespaces: No
+  IncludeInsertion:
+    Style: IncludeWhatYouUse
