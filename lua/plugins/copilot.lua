@@ -10,6 +10,7 @@ return {
       debounce = 75,
       keymap = {
         accept = '<C-g>',
+        accept_word = '<C-f>',
         next = '<C-]>',
         prev = '<C-[>',
         dismiss = '<C-d>',

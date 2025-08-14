@@ -60,6 +60,7 @@ require('lazy').setup({
   require 'plugins.java',
   -- require 'plugins.codeium',
   require 'plugins.copilot',
+  require 'plugins.flutter',
 }, {
   ui = {
     -- If you have a Nerd Font, set icons to an empty table which will use the
