@@ -1,5 +1,5 @@
-require 'core.options' -- Load general options
-require 'core.keymaps' -- Load general keymaps
+require 'core.options'  -- Load general options
+require 'core.keymaps'  -- Load general keymaps
 require 'core.snippets' -- Custom code snippets
 local catppuccin = require 'plugins.themes.catppuccin'
 local gruvbox = require 'plugins.themes.gruvbox'
@@ -56,7 +56,6 @@ require('lazy').setup({
   require 'plugins.vim-tmux-navigator',
   require 'plugins.color-pallete',
   require 'plugins.colorizer',
-  -- require 'plugins.image',
   require 'plugins.java',
   -- require 'plugins.codeium',
   require 'plugins.copilot',
