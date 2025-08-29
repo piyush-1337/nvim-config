@@ -36,6 +36,7 @@ return {
         'css',
         'html',
         'rust',
+        'verilog',
       },
 
       -- Autoinstall languages that are not installed

@@ -27,7 +27,7 @@ return {
       end,
       keys = {
         { '<leader>w', ':Neotree toggle float<CR>', silent = true, desc = 'Float File Explorer' },
-        { '<leader>e', ':Neotree toggle position=left<CR>', silent = true, desc = 'Left File Explorer' },
+        { '<leader>e', ':Neotree toggle position=right<CR>', silent = true, desc = 'Left File Explorer' },
         { '<leader>ngs', ':Neotree float git_status<CR>', silent = true, desc = 'Neotree Open Git Status Window' },
       },
     },
@@ -126,7 +126,7 @@ return {
       -- see `:h neo-tree-custom-commands-global`
       commands = {},
       window = {
-        position = 'left',
+        position = 'right',
         width = 40,
         mapping_options = {
           noremap = true,
@@ -163,7 +163,12 @@ return {
               show_path = 'relative', -- "none", "relative", "absolute"
             },
           },
-          ['A'] = 'add_directory', -- also accepts the optional config.show_path option like "add". this also supports BASH style brace expansion.
+          ['A'] = {
+            'add_directory',
+            config = {
+              show_path = 'relative', -- "none", "relative", "absolute"
+            },
+          }, -- also accepts the optional config.show_path option like "add". this also supports BASH style brace expansion.
           ['d'] = 'delete',
           ['r'] = 'rename',
           ['y'] = 'copy_to_clipboard',
@@ -176,7 +181,12 @@ return {
           --    show_path = "none" -- "none", "relative", "absolute"
           --  }
           --}
-          ['m'] = 'move', -- takes text input for destination, also accepts the optional config.show_path option like "add".
+          ['m'] = {
+            'move',
+            config = {
+              show_path = 'relative', -- "none", "relative", "absolute"
+            },
+          }, -- takes text input for destination, also accepts the optional config.show_path option like "add".
           ['q'] = 'close_window',
           ['R'] = 'refresh',
           ['?'] = 'show_help',
@@ -251,7 +261,12 @@ return {
             ['on'] = { 'order_by_name', nowait = false },
             ['os'] = { 'order_by_size', nowait = false },
             ['ot'] = { 'order_by_type', nowait = false },
-            ['m'] = { 'move', config = { show_path = 'relative' } },
+            ['m'] = {
+              'move',
+              config = {
+                show_path = 'relative',
+              },
+            },
           },
           fuzzy_finder_mappings = { -- define keymaps for filter popup window in fuzzy_finder_mode
             ['<down>'] = 'move_cursor_down',

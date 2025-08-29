@@ -176,11 +176,11 @@ return { -- LSP Configuration & Plugins
             disableOrganizeImports = true, -- Using Ruff's import organizer
             disableLanguageServices = false,
             analysis = {
-              ignore = { '*' }, -- Ignore all files for analysis to exclusively use Ruff for linting
+              ignore = { '*' },                 -- Ignore all files for analysis to exclusively use Ruff for linting
               typeCheckingMode = 'off',
               diagnosticMode = 'openFilesOnly', -- Only analyze open files
               useLibraryCodeForTypes = true,
-              autoImportCompletions = true, -- whether pyright offers auto-import completions
+              autoImportCompletions = true,     -- whether pyright offers auto-import completions
             },
           },
         },
@@ -299,6 +299,17 @@ return { -- LSP Configuration & Plugins
         },
         capabilities = require('cmp_nvim_lsp').default_capabilities(),
         settings = {},
+      },
+      svls = {
+        settings = {
+          systemverilog = {
+            -- you can put extra config here if needed
+            -- e.g., include directories:
+            -- includeIndexing = { "src/**/*.sv", "include/**/*.svh" },
+            -- defines = { "SYNTHESIS", "SIMULATION" },
+          },
+        },
+        filetypes = { 'verilog', 'systemverilog' },
       },
     }
 
