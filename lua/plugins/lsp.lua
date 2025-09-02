@@ -43,7 +43,7 @@ return { -- LSP Configuration & Plugins
         map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
         -- Find references for the word under your cursor.
-        map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+        map('<leader>gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 
         -- Jump to the implementation of the word under your cursor.
         --  Useful when your language has ways of declaring types without an actual implementation.
@@ -176,11 +176,11 @@ return { -- LSP Configuration & Plugins
             disableOrganizeImports = true, -- Using Ruff's import organizer
             disableLanguageServices = false,
             analysis = {
-              ignore = { '*' },                 -- Ignore all files for analysis to exclusively use Ruff for linting
+              ignore = { '*' }, -- Ignore all files for analysis to exclusively use Ruff for linting
               typeCheckingMode = 'off',
               diagnosticMode = 'openFilesOnly', -- Only analyze open files
               useLibraryCodeForTypes = true,
-              autoImportCompletions = true,     -- whether pyright offers auto-import completions
+              autoImportCompletions = true, -- whether pyright offers auto-import completions
             },
           },
         },

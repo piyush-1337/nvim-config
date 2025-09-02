@@ -41,6 +41,7 @@ return {
     -- toggle Copilot suggestion
     vim.keymap.set('n', '<leader>ct', function()
       require('copilot.suggestion').toggle_auto_trigger()
+      print 'Copilot toggled'
     end, { desc = 'Toggle Copilot suggestion' })
   end,
 }

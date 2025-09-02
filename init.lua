@@ -59,10 +59,11 @@ require('lazy').setup({
   require 'plugins.color-pallete',
   require 'plugins.colorizer',
   require 'plugins.java',
-  -- require 'plugins.codeium',
-  require 'plugins.copilot',
+  require 'plugins.codeium',
+  -- require 'plugins.copilot',
   require 'plugins.flutter',
   require 'plugins.competitest',
+  require 'plugins.lsp-file-operations',
 }, {
   ui = {
     -- If you have a Nerd Font, set icons to an empty table which will use the

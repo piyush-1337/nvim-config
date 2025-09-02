@@ -12,6 +12,7 @@ return {
         default_filetype_enabled = true,
         key_bindings = {
           accept = '<C-g>',
+          accept_word = '<C-f>',
           next = '<M-]>',
           prev = '<M-[>',
         },
