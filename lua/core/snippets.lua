@@ -19,6 +19,7 @@ vim.diagnostic.config {
   update_in_insert = true,
   float = {
     source = true, -- Or "if_many"
+    border = 'rounded',
   },
 
   signs = {
