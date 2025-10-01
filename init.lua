@@ -35,7 +35,7 @@ local themes = {
 -- Setup plugins
 require('lazy').setup({
   require(themes['catppuccin']), -- error with setup script no dynamic themeing for now
-  require 'plugins.telescope',
+  -- require 'plugins.telescope',
   require 'plugins.treesitter',
   require 'plugins.misc',
   require 'plugins.lsp',
@@ -43,15 +43,15 @@ require('lazy').setup({
   require 'plugins.none-ls',
   require 'plugins.lualine',
   require 'plugins.bufferline',
-  require 'plugins.neo-tree',
-  require 'plugins.alpha',
-  require 'plugins.indent-blankline',
-  require 'plugins.lazygit',
+  -- require 'plugins.neo-tree',
+  -- require 'plugins.alpha',
+  -- require 'plugins.indent-blankline',
+  -- require 'plugins.lazygit',
   require 'plugins.comment',
   require 'plugins.debug',
   require 'plugins.gitsigns',
   require 'plugins.database',
-  require 'plugins.harpoon',
+  -- require 'plugins.harpoon',
   -- require 'plugins.avante',
   -- require 'plugins.chatgpt',
   require 'plugins.aerial',
@@ -65,6 +65,7 @@ require('lazy').setup({
   require 'plugins.competitest',
   require 'plugins.lsp-file-operations',
   require 'plugins.markdown',
+  require 'plugins.snacks',
 }, {
   ui = {
     -- If you have a Nerd Font, set icons to an empty table which will use the

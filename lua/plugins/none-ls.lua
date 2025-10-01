@@ -36,6 +36,7 @@ return {
           'typescript',
           'javascriptreact',
           'typescriptreact',
+          'go',
         },
       },
       formatting.stylua,

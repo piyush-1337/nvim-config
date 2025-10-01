@@ -43,14 +43,14 @@ vim.opt.formatoptions:remove { 'c', 'r', 'o' } -- don't insert the current comme
 vim.opt.runtimepath:remove '/usr/share/vim/vimfiles' -- separate vim plugins from neovim in case vim still in use
 
 -- Autostart Neo-tree if nvim is opened with a directory
-vim.api.nvim_create_autocmd('VimEnter', {
-  callback = function()
-    local arg = vim.fn.argv(0)
-    if arg ~= '' and vim.fn.isdirectory(arg) == 1 then
-      vim.cmd 'Neotree toggle'
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd('VimEnter', {
+--   callback = function()
+--     local arg = vim.fn.argv(0)
+--     if arg ~= '' and vim.fn.isdirectory(arg) == 1 then
+--       vim.cmd 'Neotree toggle'
+--     end
+--   end,
+-- })
 
 vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
