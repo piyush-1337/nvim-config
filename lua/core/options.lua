@@ -59,6 +59,7 @@ vim.o.foldlevel = 99 -- Show everything open by default
 vim.o.foldlevelstart = 99
 vim.o.foldcolumn = '0' -- Optional: to show fold column set to 1
 
+-- useful for telescope to search within the project not in the whole home directory
 vim.api.nvim_create_autocmd('VimEnter', {
   pattern = '*',
   callback = function()

@@ -31,12 +31,32 @@ return {
       treesitter = { enabled = false },
     },
     scroll = { enabled = true },
-    statuscolumn = { enabled = false },
+    statuscolumn = {
+      enabled = true,
+      left = { 'mark', 'sign' },
+      right = { 'fold', 'git' },
+      folds = {
+        open = false,
+        git_hl = false,
+      },
+      git = {
+        patterns = { 'GitSign', 'MiniDiffSign' },
+      },
+      refresh = 50,
+    },
     words = { enabled = true },
     styles = {
       notification = {
         -- wo = { wrap = true } -- Wrap notifications
       },
+      which_key = {},
+    },
+    toggle = {
+      map = vim.keymap.set,
+      which_key = true,
+    },
+    image = {
+      enabled = true,
     },
   },
   keys = {

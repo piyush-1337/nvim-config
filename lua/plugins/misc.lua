@@ -63,13 +63,13 @@ return {
       require('crates').setup()
     end,
   },
-  {
-    '3rd/image.nvim',
-    config = function()
-      require('image').setup {
-        backend = 'kitty', -- for kitty protocol
-        -- optionally configure caching, sizing, etc.
-      }
-    end,
-  },
+  -- {
+  --   '3rd/image.nvim',
+  --   config = function()
+  --     require('image').setup {
+  --       backend = 'kitty', -- for kitty protocol
+  --       -- optionally configure caching, sizing, etc.
+  --     }
+  --   end,
+  -- },
 }
