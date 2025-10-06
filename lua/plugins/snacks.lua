@@ -17,6 +17,7 @@ return {
       enabled = true,
       sources = {
         explorer = {
+          git = true,
           layout = {
             layout = {
               position = 'right',
