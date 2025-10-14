@@ -1,6 +1,7 @@
 {
     "diagnostics.globals": [
-        "vim"
+        "vim",
+        "bg_transparent"
     ],
     "diagnostics.disable": [
         "undefined-global"

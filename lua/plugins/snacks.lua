@@ -31,7 +31,7 @@ return {
       enabled = true,
       treesitter = { enabled = false },
     },
-    scroll = { enabled = true },
+    scroll = { enabled = false },
     statuscolumn = {
       enabled = true,
       left = { 'mark', 'sign' },
@@ -57,7 +57,7 @@ return {
       which_key = true,
     },
     image = {
-      enabled = true,
+      enabled = false,
     },
   },
   keys = {
