@@ -179,9 +179,9 @@ return { -- LSP Configuration & Plugins
             disableOrganizeImports = true, -- Using Ruff's import organizer
             disableLanguageServices = false,
             analysis = {
-              ignore = { '*' }, -- Ignore all files for analysis to exclusively use Ruff for linting
-              typeCheckingMode = 'off',
-              diagnosticMode = 'openFilesOnly', -- Only analyze open files
+              -- ignore = {}, -- Ignore all files for analysis to exclusively use Ruff for linting
+              typeCheckingMode = 'basic',
+              -- diagnosticMode = 'openFilesOnly', -- Only analyze open files
               useLibraryCodeForTypes = true,
               autoImportCompletions = true, -- whether pyright offers auto-import completions
             },
@@ -190,7 +190,7 @@ return { -- LSP Configuration & Plugins
       },
       ruff = {},
       jsonls = {},
-      -- sqlls = {},
+      sqlls = {},
       -- terraformls = {},
       -- yamlls = {},
       bashls = {},
@@ -238,35 +238,39 @@ return { -- LSP Configuration & Plugins
         end,
       },
       rust_analyzer = {
-        settings = {
-          ['rust-analyzer'] = {
-            cargo = {
-              allFeatures = true,
-            },
-            checkOnSave = true,
-            check = {
-              command = 'clippy',
-            },
-            inlayHints = {
-              bindingModeHints = {
-                enable = true,
-              },
-              chainingHints = {
-                enable = true,
-              },
-              closingBraceHints = {
-                enable = true,
-              },
-              closureReturnTypeHints = {
-                enable = 'always',
-              },
-              lifetimeElisionHints = {
-                enable = 'always',
-                useParameterNames = true,
-              },
-            },
-          },
-        },
+        -- settings = {
+        --   ['rust-analyzer'] = {
+        --     cargo = {
+        --       allFeatures = true,
+        --     },
+        --     -- checkOnSave = false,
+        --     check = {
+        --       command = 'check',
+        --     },
+        --     diagnostics = {
+        --       enabled = true,
+        --       refreshOnInsertMode = true,
+        --     },
+        --     inlayHints = {
+        --       bindingModeHints = {
+        --         enable = true,
+        --       },
+        --       chainingHints = {
+        --         enable = true,
+        --       },
+        --       closingBraceHints = {
+        --         enable = true,
+        --       },
+        --       closureReturnTypeHints = {
+        --         enable = 'always',
+        --       },
+        --       lifetimeElisionHints = {
+        --         enable = 'always',
+        --         useParameterNames = true,
+        --       },
+        --     },
+        --   },
+        -- },
       },
 
       emmet_language_server = {
