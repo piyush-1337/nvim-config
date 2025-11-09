@@ -70,9 +70,9 @@ vim.api.nvim_create_autocmd('VimEnter', {
   end,
 })
 
-vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI' }, {
-  pattern = '*.rs',
-  callback = function()
-    vim.cmd 'silent w'
-  end,
-})
+-- vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI' }, {
+--   pattern = '*.rs',
+--   callback = function()
+--     vim.cmd 'w'
+--   end,
+-- })

@@ -47,7 +47,7 @@ require('lazy').setup({
   -- require 'plugins.alpha',
   -- require 'plugins.indent-blankline',
   -- require 'plugins.lazygit',
-  require 'plugins.comment',
+  -- require 'plugins.comment',
   require 'plugins.debug',
   require 'plugins.gitsigns',
   require 'plugins.database',
@@ -67,6 +67,7 @@ require('lazy').setup({
   require 'plugins.markdown',
   require 'plugins.snacks',
   require 'plugins.sidekick',
+  require 'plugins.rust',
 }, {
   ui = {
     -- If you have a Nerd Font, set icons to an empty table which will use the

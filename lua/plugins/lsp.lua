@@ -237,41 +237,53 @@ return { -- LSP Configuration & Plugins
           vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
         end,
       },
-      rust_analyzer = {
-        -- settings = {
-        --   ['rust-analyzer'] = {
-        --     cargo = {
-        --       allFeatures = true,
-        --     },
-        --     -- checkOnSave = false,
-        --     check = {
-        --       command = 'check',
-        --     },
-        --     diagnostics = {
-        --       enabled = true,
-        --       refreshOnInsertMode = true,
-        --     },
-        --     inlayHints = {
-        --       bindingModeHints = {
-        --         enable = true,
-        --       },
-        --       chainingHints = {
-        --         enable = true,
-        --       },
-        --       closingBraceHints = {
-        --         enable = true,
-        --       },
-        --       closureReturnTypeHints = {
-        --         enable = 'always',
-        --       },
-        --       lifetimeElisionHints = {
-        --         enable = 'always',
-        --         useParameterNames = true,
-        --       },
-        --     },
-        --   },
-        -- },
-      },
+      -- rust_analyzer = {
+      --   cmd = { vim.fn.stdpath 'data' .. '/mason/bin/rust-analyzer' },
+      --   settings = {
+      --     ['rust-analyzer'] = {
+      --       cargo = {
+      --         -- allFeatures = true,
+      --         -- features = 'all',
+      --         buildScripts = {
+      --           enable = true,
+      --           rebuildOnSave = true,
+      --         },
+      --         autoreload = true,
+      --         allTargets = true,
+      --       },
+      --       procMacro = {
+      --         enable = true,
+      --       },
+      --       checkOnSave = true,
+      --       check = {
+      --         command = 'check',
+      --         enabled = true,
+      --       },
+      --       diagnostics = {
+      --         enabled = true,
+      --         refreshOnInsertMode = true,
+      --       },
+      --       inlayHints = {
+      --         bindingModeHints = {
+      --           enable = true,
+      --         },
+      --         chainingHints = {
+      --           enable = true,
+      --         },
+      --         closingBraceHints = {
+      --           enable = true,
+      --         },
+      --         closureReturnTypeHints = {
+      --           enable = 'always',
+      --         },
+      --         lifetimeElisionHints = {
+      --           enable = 'always',
+      --           useParameterNames = true,
+      --         },
+      --       },
+      --     },
+      --   },
+      -- },
 
       emmet_language_server = {
         filetypes = {

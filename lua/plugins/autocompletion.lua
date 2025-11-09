@@ -78,7 +78,7 @@ return { -- Autocompletion
         -- ['<C-j>'] = cmp.mapping.select_next_item(),       -- Select the [n]ext item
         -- ['<C-k>'] = cmp.mapping.select_prev_item(),       -- Select the [p]revious item
         ['<CR>'] = cmp.mapping.confirm { select = true }, -- Accept the completion with Enter.
-        ['<C-c>'] = cmp.mapping.complete {},              -- Manually trigger a completion from nvim-cmp.
+        ['<C-c>'] = cmp.mapping.complete {}, -- Manually trigger a completion from nvim-cmp.
 
         -- Think of <c-l> as moving to the right of your snippet expansion.
         --  So if you have a snippet that's like:
@@ -121,11 +121,49 @@ return { -- Autocompletion
       },
       sources = {
         { name = 'codeium' },
-        { name = 'nvim_lsp' },
+        { name = 'nvim_lsp', priority = 100 },
         { name = 'luasnip' },
         { name = 'buffer' },
         { name = 'path' },
         { name = 'crates' },
+      },
+
+      sorting = {
+        priority_weight = 2,
+        comparators = {
+          function(entry1, entry2)
+            local kind_priority = {
+              -- Using numeric LSP kinds directly
+              [cmp.lsp.CompletionItemKind.Field] = 100,
+              [cmp.lsp.CompletionItemKind.Property] = 100,
+              [cmp.lsp.CompletionItemKind.Variable] = 90,
+              [cmp.lsp.CompletionItemKind.EnumMember] = 90,
+              [cmp.lsp.CompletionItemKind.Method] = 70,
+              [cmp.lsp.CompletionItemKind.Function] = 60,
+              [cmp.lsp.CompletionItemKind.Constructor] = 50,
+              [cmp.lsp.CompletionItemKind.Class] = 40,
+              [cmp.lsp.CompletionItemKind.Interface] = 40,
+              [cmp.lsp.CompletionItemKind.Module] = 40,
+              [cmp.lsp.CompletionItemKind.Struct] = 40,
+              [cmp.lsp.CompletionItemKind.Constant] = 30,
+              [cmp.lsp.CompletionItemKind.Keyword] = 20,
+              [cmp.lsp.CompletionItemKind.Snippet] = 10,
+              [cmp.lsp.CompletionItemKind.Text] = 5,
+            }
+
+            local kind1 = kind_priority[entry1.completion_item.kind] or 0
+            local kind2 = kind_priority[entry2.completion_item.kind] or 0
+
+            if kind1 ~= kind2 then
+              return kind1 > kind2
+            end
+          end,
+
+          cmp.config.compare.score,
+          cmp.config.compare.exact,
+          cmp.config.compare.offset,
+          cmp.config.compare.order,
+        },
       },
       formatting = {
         fields = { 'kind', 'abbr', 'menu' },
